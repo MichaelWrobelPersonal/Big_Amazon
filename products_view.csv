@@ -1,0 +1,13 @@
+"item_id","product_name","department_name","price","stock_quantity"
+1,"Cell-Phone","Electronics
+",899.99,300
+2,"Computer","Electronics
+",1499.98,75
+3,"Grill","Home and Garden",399.97,125
+4,"Lawn Mower","Home and Garden",255.54,50
+5,"Couch","Furniture",749.89,33
+6,"Tires","Automotive",175.02,400
+7,"Coffee Maker","Kitchen Wares",40,200
+8,"Refrigerator","Kitchen Wares",1699.75,80
+9,"Boots","Shoes",80.49,350
+10,"Basketball Hoop","Sports",499.33,15
