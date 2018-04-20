@@ -169,7 +169,7 @@ function addNewProduct() {
     }
   ])
     .then(function(answer) {
-      var query = "INSERT INTO `products` (`iem_id, product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?, ?)";
+      var query = "INSERT INTO `products` (`item_id, product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?, ?)";
       connection.query(query,
          [
            { item_id: answer.item_id },

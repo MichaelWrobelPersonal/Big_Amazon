@@ -90,8 +90,11 @@ function placeOrder() {
             if (res[0].stock_quantity > answer.item_qty)
             {
                updateProductStock(res[0].item_id, res[0].stock_quantity-answer.item_qty);
-               console.log("\n\nYour cost is: $" + (parseInt(answer.item_qty) * parseFloat(res[0].price)) + "\n\n" );
-            }
+               let total_cost = (parseInt(answer.item_qty) * parseFloat(res[0].price)); 
+               console.log("\n\nYour cost is: $" + total_cost + "\n\n" );
+               let product_sales = parseFloat(res[0].product_sales) + total_cost;
+               updateProductSales(res[0].item_id, product_sales);
+              }
            else
                console.log("Insufficient quantity in stock, try again.");
           } 
@@ -123,4 +126,25 @@ function updateProductStock(choosen_item_id, updated_qty) {
     console.log(query.sql);
 }
 
+function updateProductSales(choosen_item_id, updated_sales) {
+  console.log("Updating Product Sales...\n");
+  var query = connection.query(
+    "UPDATE bamazon.products SET ? WHERE ?",
+    [
+      {
+        product_sales: updated_sales
+      },
+      {
+        item_id: choosen_item_id
+      }
+    ],
+    function (err, res) {
+      if (err) {
+          throw err;
+      }
+      console.log(res.affectedRows + " product sales updated!\n");
+    }
+  );
+  console.log(query.sql);
+}
 
