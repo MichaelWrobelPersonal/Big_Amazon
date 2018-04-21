@@ -169,7 +169,8 @@ function addNewProduct() {
     }
   ])
     .then(function(answer) {
-      var query = "INSERT INTO `products` (`item_id, product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?, ?)";
+//      var query = "INSERT INTO products VALUES (?, ?, ?, ?, ?, 0)";
+      var query = "INSERT INTO products (item_id, product_name, department_name, price, stock_quantity, product_sales) VALUES (?, ?, ?, ?, ?, 0)";
       connection.query(query,
          [
            { item_id: answer.item_id },
@@ -179,11 +180,13 @@ function addNewProduct() {
            { stock_quantity: answer.stock_quantity }                      
          ],
         function(err, res) {
-//        for (var i = 0; i < res.length; i++) {
-//          console.log("id: " + res[i].item_id + " || Product: " + res[i].product_name + " || Department: " + res[i].department_name + "|| Price:  " + res[i].price + "|| Quantity: " + res[i].stock_quantity );
-//        }
-        console.log("The following items has been added...")
-        console.log("id: " + answer.item_id + " || Product: " + answer.product_name + " || Department: " + answer.department_name + "|| Price:  " + answer.price + "|| Quantity: " + answer.stock_quantity );
+        if (err)
+            throw err;
+        else
+        {
+          console.log("The following items has been added...")
+          console.log("id: " + answer.item_id + " || Product: " + answer.product_name + " || Department: " + answer.department_name + "|| Price:  " + answer.price + "|| Quantity: " + answer.stock_quantity );
+        }
         connection.end();
       });
 //      managerService();

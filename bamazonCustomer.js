@@ -40,7 +40,7 @@ function customerService() {
         placeOrder();
         break;
 
-      case "Exit the store":
+      case "Exit the store\n\n":
         connection.end();
         console.log("\nGoodbye, come back soon.\n\n");
         break;
@@ -78,15 +78,14 @@ function placeOrder() {
       }
     ])
       .then(function(answer) {
-        var query = "SELECT item_id, product_name, department_name, price, stock_quantity FROM bamazon.products WHERE item_id=?";
+        var query = "SELECT item_id, product_name, department_name, price, stock_quantity, product_sales FROM bamazon.products WHERE item_id=?";
         connection.query(query, { item_id: answer.item_id }, function(err, res) {
           if (err)
             throw(err)
           else
           {
-            for (var i = 0; i < res.length; i++) {
-              console.log("id: " + res[i].item_id + " || Product: " + res[i].product_name + " || Department: " + res[i].department_name + "|| Price:  " + res[i].price + "|| Quantity: " + res[i].stock_quantity );
-            }
+            let i = 0;
+            console.log("\nid: " + res[i].item_id + " || Product: " + res[i].product_name + " || Department: " + res[i].department_name + "|| Price:  " + res[i].price + "|| Quantity: " + res[i].stock_quantity + "|| Sales: " + res[i].product_sales );
             if (res[0].stock_quantity > answer.item_qty)
             {
                updateProductStock(res[0].item_id, res[0].stock_quantity-answer.item_qty);

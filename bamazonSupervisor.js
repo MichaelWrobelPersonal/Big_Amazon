@@ -54,15 +54,16 @@ function showDepartments() {
     if (err)
       throw(err)
     else
-      for (var i = 0; i < res.length; i++) {
-        let sales = 0;
-        let profit = 0;
-        if (res[i].product_sales != null)
+      for (var i = 0; i < res.length; i++)
+      {        
+        let sales = parseFloat(res[i].product_sales);
+        let profit =  (sales - parseFloat(res[i].over_head_costs));
+        if (res[i].product_sales == null)
         {
-            sales = parseFloat(res[i].product_sales);
-            profit =  (sales - parseFloat(res[i].over_head_costs));
+            sales = 0.0;
+            profit = 0.0 -  parseFloat(res[i].over_head_costs);
         }
-        console.log("id: " + res[i].department_id + " || Department: " + res[i].department_name + " || Overhead: " + res[i].over_head_costs + "|| Sales:  " + res[i].product_sales + "|| Profit: " +  (parseFloat(res[i].product_sales) - parseFloat(res[i].over_head_costs)) );
+        console.log("id: " + res[i].department_id + " || Department: " + res[i].department_name + " || Overhead: " + res[i].over_head_costs + "|| Sales: " + sales + "|| Profit: " + profit );
       }
       connection.end();
     });
@@ -88,8 +89,8 @@ function createDepartment() {
     }
     ])
     .then(function(answer) {
-      var query = "INSERT INTO `departments` VALUES (?, ?, ?)";
-//      var query = "INSERT INTO `departments` (`department_id, department_name, over_head_costs) VALUES (?, ?, ?)";
+//      var query = "INSERT INTO `departments` VALUES (?, ?, ?)";
+      var query = "INSERT INTO departments (department_id, department_name, over_head_costs) VALUES (?, ?, ?)";
       connection.query(query,
          [
            { department_id: answer.department_id },
